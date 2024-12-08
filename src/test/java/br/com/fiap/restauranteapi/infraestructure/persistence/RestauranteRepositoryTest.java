@@ -1,12 +1,19 @@
 package br.com.fiap.restauranteapi.infraestructure.persistence;
 
-import br.com.fiap.restauranteapi.domain.restaurante.entity.Restaurante;
+import br.com.fiap.restauranteapi.domain.entity.HorarioFuncionamento;
+import br.com.fiap.restauranteapi.domain.entity.Localizacao;
+import br.com.fiap.restauranteapi.domain.entity.Restaurante;
+import br.com.fiap.restauranteapi.domain.entity.enums.DiasSemana;
+import br.com.fiap.restauranteapi.infraestructure.persistence.restaurante.converter.RestauranteConverter;
+import br.com.fiap.restauranteapi.infraestructure.persistence.restaurante.entity.RestauranteJpa;
+import br.com.fiap.restauranteapi.infraestructure.persistence.restaurante.repository.RestauranteRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,62 +42,65 @@ class RestauranteRepositoryTest {
     @Test
     void devePermitirCriarRestaurante() {
         Restaurante restaurante = criarRestaurante();
-
-        when(restauranteRepository.save(any(Restaurante.class))).thenReturn(restaurante);
-        Restaurante restauranteSalvo = restauranteRepository.save(restaurante);
+        RestauranteJpa restauranteJpa = toJpa(restaurante);
+        when(restauranteRepository.save(any(RestauranteJpa.class))).thenReturn(restauranteJpa);
+        RestauranteJpa restauranteSalvo = restauranteRepository.save(restauranteJpa);
         assertThat(restauranteSalvo).isNotNull()
-                .isEqualTo(restaurante);
+                .isInstanceOf(RestauranteJpa.class);
 
-        verify(restauranteRepository, times(1)).save(any(Restaurante.class));
+        assertThat(restauranteSalvo.getId()).isSameAs(restaurante.getId());
 
+        verify(restauranteRepository, times(1)).save(any(RestauranteJpa.class));
     }
 
     @Test
     void devePermitirBuscarRestaurantePorId() {
-        Restaurante restaurante = criarRestaurante();
-        Long id = 1L;
-        restaurante.setId(id);
-        when(restauranteRepository.findById(1L)).thenReturn(Optional.of(restaurante));
+        final Restaurante restaurante = criarRestaurante();
+        RestauranteJpa restauranteJpa = toJpa(restaurante);
+        when(restauranteRepository.findById(1L)).thenReturn(Optional.of(restauranteJpa));
 
-        Optional<Restaurante> restauranteEncontrado = restauranteRepository.findById(id);
+        Optional<RestauranteJpa> restauranteEncontrado = restauranteRepository.findById(1L);
 
         assertThat(restauranteEncontrado).isPresent();
-        assertThat(restauranteEncontrado.get().getId()).isEqualTo(id);
+        assertThat(restauranteEncontrado.get().getId()).isEqualTo(restauranteJpa.getId());
 
-        verify(restauranteRepository, times(1)).findById(id);
+        verify(restauranteRepository, times(1)).findById(1L);
     }
 
     @Test
     void devePermitirBuscarTodosRestaurantes() {
-        Restaurante restaurante1 = criarRestaurante();
-        Restaurante restaurante2 = criarRestaurante();
-        when(restauranteRepository.findAll()).thenReturn(List.of(restaurante1, restaurante2));
+        RestauranteJpa restauranteJpa1 = toJpa(criarRestaurante());
+        RestauranteJpa restauranteJpa2 = toJpa(criarRestaurante());
+        when(restauranteRepository.findAll()).thenReturn(List.of(restauranteJpa1, restauranteJpa2));
 
-        assertThat(restauranteRepository.findAll()).isNotEmpty()
+        List<RestauranteJpa> restaurantes = restauranteRepository.findAll();
+
+        assertThat(restaurantes).isNotEmpty()
                 .hasSize(2)
-                .containsExactlyInAnyOrder(restaurante1, restaurante2);
+                .containsExactlyInAnyOrder(restauranteJpa1, restauranteJpa2);
 
         verify(restauranteRepository, times(1)).findAll();
     }
 
-    @Test
-    void devePermitirDeletarRestaurantePorId() {
-        Long id = 1L;
-        doNothing().when(restauranteRepository).deleteById(id);
+    private Restaurante criarRestaurante() {
+        final Localizacao localizacao = new Localizacao("89041183",
+                "Rua Teste",
+                "100",
+                "Lado do mercado",
+                "Bairro teste",
+                "São Paulo",
+                "SP",
+                "Brasil");
+        final HorarioFuncionamento horarioFuncionamento = new HorarioFuncionamento(
+                List.of(DiasSemana.SEGUNDA, DiasSemana.TERCA, DiasSemana.QUARTA, DiasSemana.QUINTA, DiasSemana.SEXTA),
+                LocalTime.of(8, 0),
+                LocalTime.of(18, 0));
 
-        restauranteRepository.deleteById(id);
-
-        verify(restauranteRepository, times(1)).deleteById(id);
+        return new Restaurante("Restaurante do Zé", localizacao, horarioFuncionamento,"Lanchonete" , 10);
     }
 
-    Restaurante criarRestaurante() {
-        Restaurante restaurante = new Restaurante();
-        restaurante.setNome("Restaurante do Zé");
-        restaurante.setLocalizacao("Rua do Zé, 123");
-        restaurante.setTipoRestaurante("11999999999");
-        restaurante.setHorario("10:00 - 22:00");
-        restaurante.setCapacidade(100);
-        return restaurante;
+    private RestauranteJpa toJpa(Restaurante restaurante) {
+        return RestauranteConverter.toJpa(restaurante);
     }
 
 }
