@@ -4,9 +4,9 @@ import br.com.fiap.restauranteapi.domain.entity.HorarioFuncionamento;
 import br.com.fiap.restauranteapi.domain.entity.Localizacao;
 import br.com.fiap.restauranteapi.domain.entity.Restaurante;
 import br.com.fiap.restauranteapi.domain.entity.enums.DiasSemana;
-import br.com.fiap.restauranteapi.infraestructure.persistence.restaurante.converter.RestauranteConverter;
-import br.com.fiap.restauranteapi.infraestructure.persistence.restaurante.entity.RestauranteJpa;
-import br.com.fiap.restauranteapi.infraestructure.persistence.restaurante.repository.RestauranteRepository;
+import br.com.fiap.restauranteapi.infraestructure.persistence.converter.db.RestauranteConverter;
+import br.com.fiap.restauranteapi.infraestructure.persistence.jpa.entity.RestauranteJPAEntity;
+import br.com.fiap.restauranteapi.infraestructure.persistence.jpa.repository.RestauranteRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,12 +35,12 @@ public class RestauranteRepositoryIntegratedTest {
     @Test
     void devePermitirRegistrarRestaurante() {
         final Restaurante restaurante = criarRestaurante();
-        final RestauranteJpa restauranteJpa = toJpa(restaurante);
+        final RestauranteJPAEntity restauranteJpa = toJpa(restaurante);
 
-        final RestauranteJpa restauranteSalvo = restauranteRepository.save(restauranteJpa);
+        final RestauranteJPAEntity restauranteSalvo = restauranteRepository.save(restauranteJpa);
 
         assertThat(restauranteSalvo).isNotNull()
-                .isInstanceOf(RestauranteJpa.class);
+                .isInstanceOf(RestauranteJPAEntity.class);
 
         assertThat(restauranteSalvo.getLogradouro()).isSameAs(restaurante.getLocalizacao().getLogradouro());
 
@@ -50,7 +50,7 @@ public class RestauranteRepositoryIntegratedTest {
     void devePermitirBuscarRestaurante() {
         final Restaurante restaurante = criarRestaurante();
 
-        final RestauranteJpa restauranteSalvo = restauranteRepository.save(toJpa(restaurante));
+        final RestauranteJPAEntity restauranteSalvo = restauranteRepository.save(toJpa(restaurante));
 
         var restauranteRespostaOptional = restauranteRepository.findById(restauranteSalvo.getId());
 
@@ -62,9 +62,9 @@ public class RestauranteRepositoryIntegratedTest {
     @Test
     void devePermitirBuscarTodosRestaurantes() {
         final Restaurante restaurante = criarRestaurante();
-        final RestauranteJpa restauranteJpa = toJpa(restaurante);
+        final RestauranteJPAEntity restauranteJpa = toJpa(restaurante);
 
-        final RestauranteJpa restauranteSalvo = restauranteRepository.save(restauranteJpa);
+        final RestauranteJPAEntity restauranteSalvo = restauranteRepository.save(restauranteJpa);
 
         var restaurantes = restauranteRepository.findAll();
 
@@ -90,11 +90,11 @@ public class RestauranteRepositoryIntegratedTest {
         return new Restaurante("Restaurante do Zé", localizacao, horarioFuncionamento, "Lanchonete", 10);
     }
 
-    private RestauranteJpa toJpa(Restaurante restaurante) {
+    private RestauranteJPAEntity toJpa(Restaurante restaurante) {
         return RestauranteConverter.toJpa(restaurante);
     }
 
-    private Restaurante fromJpa(RestauranteJpa restauranteJpa) {
+    private Restaurante fromJpa(RestauranteJPAEntity restauranteJpa) {
         return RestauranteConverter.toDomain(restauranteJpa);
     }
 }

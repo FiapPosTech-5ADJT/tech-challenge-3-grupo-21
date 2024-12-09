@@ -1,6 +1,6 @@
 package br.com.fiap.restauranteapi.domain.service;
 
-import br.com.fiap.restauranteapi.domain.DTO.LocalizacaoDTO;
+import br.com.fiap.restauranteapi.domain.dto.LocalizacaoDTO;
 import br.com.fiap.restauranteapi.domain.entity.Restaurante;
 import br.com.fiap.restauranteapi.domain.gateway.RestauranteGateway;
 
