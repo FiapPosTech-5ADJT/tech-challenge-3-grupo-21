@@ -1,6 +1,6 @@
 package br.com.fiap.restauranteapi.domain.gateway;
 
-import br.com.fiap.restauranteapi.domain.dto.LocalizacaoDTO;
+import br.com.fiap.restauranteapi.domain.dto.LocalizacaoDto;
 import br.com.fiap.restauranteapi.domain.entity.Restaurante;
 
 import java.util.List;
@@ -14,5 +14,5 @@ public interface RestauranteGateway {
 
     List<Restaurante> findAll();
 
-    List<Restaurante> findByLocation(LocalizacaoDTO localizacaoDTO);
+    List<Restaurante> findByLocation(LocalizacaoDto localizacaoDTO);
 }

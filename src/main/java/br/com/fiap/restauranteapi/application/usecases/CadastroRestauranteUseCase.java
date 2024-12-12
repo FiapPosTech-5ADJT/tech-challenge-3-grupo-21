@@ -1,38 +1,28 @@
-package br.com.fiap.restauranteapi.domain.service;
+package br.com.fiap.restauranteapi.application.usecases;
 
-import br.com.fiap.restauranteapi.domain.dto.LocalizacaoDto;
 import br.com.fiap.restauranteapi.domain.entity.HorarioFuncionamento;
 import br.com.fiap.restauranteapi.domain.entity.Localizacao;
 import br.com.fiap.restauranteapi.domain.entity.Restaurante;
 import br.com.fiap.restauranteapi.domain.gateway.RestauranteGateway;
+import br.com.fiap.restauranteapi.domain.service.RestauranteService;
 
 import java.time.Duration;
-import java.util.List;
-import java.util.Optional;
 
-public class RestauranteService {
+public class CadastroRestauranteUseCase {
+    private static final int TEMPO_FUNCIONAMENTO_MINIMO = 3;
 
-    private final RestauranteGateway restauranteGateway;
+    private final RestauranteService restauranteService;
 
-    public RestauranteService(RestauranteGateway restauranteGateway) {
-        this.restauranteGateway = restauranteGateway;
+    public CadastroRestauranteUseCase(RestauranteService restauranteService) {
+        this.restauranteService = restauranteService;
     }
 
-    public Restaurante createRestaurante(Restaurante restaurante) {
-        if(restaurante == null) {
-            throw new IllegalArgumentException("Restaurante não pode ser nulo");
-        }
+    public Restaurante cadastrar(Restaurante restaurante) {
         validarDadosRestaurante(restaurante);
         validarDadosLocalizacao(restaurante.getLocalizacao());
         validarDadosFuncionamento(restaurante.getHorarioFuncionamento());
-        return restauranteGateway.create(restaurante);
-    }
 
-    public List<Restaurante> searchRestaurantesByLocation(LocalizacaoDto localizacaoDTO) {
-        if(localizacaoDTO == null) {
-            throw new IllegalArgumentException("Localização não pode ser nula ou vazia");
-        }
-        return restauranteGateway.findByLocation(localizacaoDTO);
+        return this.restauranteService.createRestaurante(restaurante);
     }
 
     private static void validarDadosRestaurante(Restaurante restaurante) {
@@ -50,6 +40,18 @@ public class RestauranteService {
     private static void validarDadosFuncionamento(HorarioFuncionamento funcionamento) {
         if (funcionamento.getHorarioAbertura().isAfter(funcionamento.getHorarioFechamento())) {
             throw new IllegalArgumentException("Horário de abertura deve ser antes do horário de encerramento.");
+        }
+
+        int tempoFuncionamento = Duration.between(
+                funcionamento.getHorarioAbertura(),
+                funcionamento.getHorarioFechamento()
+        ).toHoursPart();
+
+        String fimDaFraseComPluralCorreto = (TEMPO_FUNCIONAMENTO_MINIMO > 1 ? "s." : ".");
+
+        if (tempoFuncionamento < TEMPO_FUNCIONAMENTO_MINIMO) {
+            throw new IllegalArgumentException("Tempo de funcionamento mínimo deve ser de pelo menos "
+                    + TEMPO_FUNCIONAMENTO_MINIMO + " hora" + fimDaFraseComPluralCorreto);
         }
     }
 }

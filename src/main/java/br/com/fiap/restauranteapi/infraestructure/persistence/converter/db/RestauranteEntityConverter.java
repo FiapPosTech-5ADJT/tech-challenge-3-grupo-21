@@ -5,9 +5,9 @@ import br.com.fiap.restauranteapi.domain.entity.Localizacao;
 import br.com.fiap.restauranteapi.domain.entity.Restaurante;
 import br.com.fiap.restauranteapi.infraestructure.persistence.jpa.entity.RestauranteJPAEntity;
 
-public class RestauranteConverter {
+public class RestauranteEntityConverter implements EntityConverter<Restaurante, RestauranteJPAEntity>{
 
-    public static RestauranteJPAEntity toJpa(Restaurante restaurante) {
+    public RestauranteJPAEntity toEntity(Restaurante restaurante) {
         return RestauranteJPAEntity.builder()
                 .id(restaurante.getId())
                 .nome(restaurante.getNome())
@@ -29,7 +29,7 @@ public class RestauranteConverter {
                 .build();
     }
 
-    public static Restaurante toDomain(RestauranteJPAEntity restauranteJpa) {
+    public Restaurante toDomainObj(RestauranteJPAEntity restauranteJpa) {
         Localizacao localizacao = new Localizacao(
                 restauranteJpa.getCep(),
                 restauranteJpa.getLogradouro(),

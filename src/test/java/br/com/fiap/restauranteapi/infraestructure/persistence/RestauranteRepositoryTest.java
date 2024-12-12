@@ -4,7 +4,7 @@ import br.com.fiap.restauranteapi.domain.entity.HorarioFuncionamento;
 import br.com.fiap.restauranteapi.domain.entity.Localizacao;
 import br.com.fiap.restauranteapi.domain.entity.Restaurante;
 import br.com.fiap.restauranteapi.domain.entity.enums.DiasSemana;
-import br.com.fiap.restauranteapi.infraestructure.persistence.converter.db.RestauranteConverter;
+import br.com.fiap.restauranteapi.infraestructure.persistence.converter.db.RestauranteEntityConverter;
 import br.com.fiap.restauranteapi.infraestructure.persistence.jpa.entity.RestauranteJPAEntity;
 import br.com.fiap.restauranteapi.infraestructure.persistence.jpa.repository.RestauranteRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -100,7 +100,7 @@ class RestauranteRepositoryTest {
     }
 
     private RestauranteJPAEntity toJpa(Restaurante restaurante) {
-        return RestauranteConverter.toJpa(restaurante);
+        return RestauranteEntityConverter.toEntity(restaurante);
     }
 
 }

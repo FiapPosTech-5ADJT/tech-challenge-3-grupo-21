@@ -1,9 +1,9 @@
 package br.com.fiap.restauranteapi.infraestructure.gateway;
 
-import br.com.fiap.restauranteapi.domain.dto.LocalizacaoDTO;
+import br.com.fiap.restauranteapi.domain.dto.LocalizacaoDto;
 import br.com.fiap.restauranteapi.domain.entity.Restaurante;
 import br.com.fiap.restauranteapi.domain.gateway.RestauranteGateway;
-import br.com.fiap.restauranteapi.infraestructure.persistence.converter.db.RestauranteConverter;
+import br.com.fiap.restauranteapi.infraestructure.persistence.converter.db.RestauranteEntityConverter;
 import br.com.fiap.restauranteapi.infraestructure.persistence.jpa.entity.RestauranteJPAEntity;
 import br.com.fiap.restauranteapi.infraestructure.persistence.jpa.repository.RestauranteRepository;
 import lombok.AllArgsConstructor;
@@ -15,29 +15,30 @@ import java.util.Optional;
 public class RestauranteGatewayImpl implements RestauranteGateway {
 
     private final RestauranteRepository restauranteRepository;
+    private final RestauranteEntityConverter restauranteEntityConverter;
 
     @Override
     public Restaurante create(Restaurante restaurante) {
-        RestauranteJPAEntity restauranteJpa = RestauranteConverter.toJpa(restaurante);
+        RestauranteJPAEntity restauranteJpa = restauranteEntityConverter.toEntity(restaurante);
         RestauranteJPAEntity restauranteSalvo = restauranteRepository.save(restauranteJpa);
-        return RestauranteConverter.toDomain(restauranteSalvo);
+        return restauranteEntityConverter.toDomainObj(restauranteSalvo);
     }
 
     @Override
     public Optional<Restaurante> findById(Long id) {
         return restauranteRepository.findById(id)
-                .map(RestauranteConverter::toDomain);
+                .map(restauranteEntityConverter::toDomainObj);
     }
 
     @Override
     public List<Restaurante> findAll() {
         return restauranteRepository.findAll().stream()
-                .map(RestauranteConverter::toDomain)
+                .map(restauranteEntityConverter::toDomainObj)
                 .toList();
     }
 
     @Override
-    public List<Restaurante> findByLocation(LocalizacaoDTO localizacao) {
+    public List<Restaurante> findByLocation(LocalizacaoDto localizacao) {
         return restauranteRepository.findByLocation(
                 localizacao.nome(),
                 localizacao.tipoCozinha(),
@@ -46,7 +47,7 @@ public class RestauranteGatewayImpl implements RestauranteGateway {
                 localizacao.estado(),
                 localizacao.cep()
         ).stream()
-                .map(RestauranteConverter::toDomain)
+                .map(restauranteEntityConverter::toDomainObj)
                 .toList();
     }
 
