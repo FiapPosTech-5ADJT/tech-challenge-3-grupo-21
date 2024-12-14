@@ -29,6 +29,8 @@ class RestauranteRepositoryTest {
 
     AutoCloseable closeable;
 
+    RestauranteEntityConverter restauranteEntityConverter = new RestauranteEntityConverter();
+
     @BeforeEach
     void setup() {
         closeable = MockitoAnnotations.openMocks(this);
@@ -100,7 +102,7 @@ class RestauranteRepositoryTest {
     }
 
     private RestauranteJPAEntity toJpa(Restaurante restaurante) {
-        return RestauranteEntityConverter.toEntity(restaurante);
+        return restauranteEntityConverter.toEntity(restaurante);
     }
 
 }

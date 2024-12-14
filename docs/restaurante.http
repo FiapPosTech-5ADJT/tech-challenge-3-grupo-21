@@ -1,0 +1,70 @@
+### Create a new restaurant
+POST http://localhost:8080/restaurante
+Content-Type: application/json
+
+{
+  "nome": "Restaurante do Zéca",
+  "localizacao": {
+    "cep": "89041182",
+    "logradouro": "Rua de teste",
+    "numero": "123",
+    "complemento": "depois do mercado",
+    "bairro": "Centro",
+    "cidade": "São Paulo",
+    "estado": "São Paulo",
+    "pais": "Brasil"
+  },
+  "horarioFuncionamento": {
+    "diasSemanaList": ["SEGUNDA", "TERCA", "QUARTA", "QUINTA", "SEXTA", "SABADO", "DOMINGO"],
+    "horarioAbertura": "18:00",
+    "horarioFechamento": "23:59"
+  },
+  "tipoRestaurante": "Lanchonete",
+  "capacidade": 25
+}
+
+### Create another restaurant
+POST http://localhost:8080/restaurante
+Content-Type: application/json
+
+{
+  "nome": "Sushi do gu",
+  "localizacao": {
+    "cep": "89041182",
+    "logradouro": "Rua de teste",
+    "numero": "123",
+    "complemento": "depois do mercado",
+    "bairro": "Centro",
+    "cidade": "São Paulo",
+    "estado": "São Paulo",
+    "pais": "Brasil"
+  },
+  "horarioFuncionamento": {
+    "diasSemanaList": ["SEGUNDA", "TERCA", "QUARTA", "QUINTA", "SEXTA", "SABADO", "DOMINGO"],
+    "horarioAbertura": "18:00",
+    "horarioFechamento": "23:59"
+  },
+  "tipoRestaurante": "Lanchonete",
+  "capacidade": 20
+}
+
+### Create a restaurant with invalid data
+POST http://localhost:8080/restaurante
+Content-Type: application/json
+
+{
+  "nome": ""
+}
+
+### Search for restaurants by location
+POST http://localhost:8080/restaurante/buscar
+Content-Type: application/json
+
+{
+  "nome": "",
+  "tipoCozinha": "",
+  "endereco": "",
+  "cidade": "São Paulo",
+  "estado": "",
+  "cep": ""
+}

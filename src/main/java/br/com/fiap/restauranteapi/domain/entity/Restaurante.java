@@ -20,7 +20,6 @@ public class Restaurante {
     }
 
     public Restaurante(String nome, Localizacao localizacao, HorarioFuncionamento horarioFuncionamento, String tipoRestaurante, int capacidade) {
-        this.id = id;
         setNome(nome);
         setLocalizacao(localizacao);
         setHorarioFuncionamento(horarioFuncionamento);
@@ -29,7 +28,6 @@ public class Restaurante {
     }
 
     public Restaurante(String nome, String tipoRestaurante, int capacidade) {
-        this.id = id;
         setNome(nome);
         setTipoRestaurante(tipoRestaurante);
         setCapacidade(capacidade);

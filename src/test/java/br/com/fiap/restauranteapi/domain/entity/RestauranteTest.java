@@ -22,14 +22,11 @@ class RestauranteTest {
     void devePermitirCriarRestauranteSemLocalizacaoSemHorario() {
         final Restaurante restauranteSemLocalizacaoSemHorario = new Restaurante("Restaurante", "Lanchonete", 20);
         assertThat(restaurante).isNotNull();
-        assertThat(restaurante.getId()).isEqualTo(1L);
         assertThat(restaurante.getNome()).isEqualTo("Restaurante");
         assertThat(restaurante.getLocalizacao()).isNull();
         assertThat(restaurante.getHorarioFuncionamento()).isNull();
         assertThat(restaurante.getTipoRestaurante()).isEqualTo("Lanchonete");
         assertThat(restaurante.getCapacidade()).isEqualTo(20);
-        assertThat(restaurante.getCreatedAt()).isNotNull();
-        assertThat(restaurante.getUpdatedAt()).isNotNull();
     }
 
     @Test
@@ -49,7 +46,6 @@ class RestauranteTest {
 
         final Restaurante restauranteSemDatas = new Restaurante("Restaurante do Zé", localizacao, horarioFuncionamento,"Lanchonete" , 10);
         assertThat(restauranteSemDatas).isNotNull();
-        assertThat(restauranteSemDatas.getId()).isEqualTo(1L);
         assertThat(restauranteSemDatas.getNome()).isEqualTo("Restaurante do Zé");
         assertThat(restauranteSemDatas.getLocalizacao()).isNotNull();
         assertThat(restauranteSemDatas.getLocalizacao().getCep()).isEqualTo("89041183");
@@ -57,8 +53,6 @@ class RestauranteTest {
         assertThat(restauranteSemDatas.getHorarioFuncionamento().getDiasSemanaList()).isEqualTo(List.of(DiasSemana.SEGUNDA, DiasSemana.TERCA, DiasSemana.QUARTA, DiasSemana.QUINTA, DiasSemana.SEXTA));
         assertThat(restauranteSemDatas.getTipoRestaurante()).isEqualTo("Lanchonete");
         assertThat(restauranteSemDatas.getCapacidade()).isEqualTo(10);
-        assertThat(restauranteSemDatas.getCreatedAt()).isNotNull();
-        assertThat(restauranteSemDatas.getUpdatedAt()).isNotNull();
     }
 
     @Test

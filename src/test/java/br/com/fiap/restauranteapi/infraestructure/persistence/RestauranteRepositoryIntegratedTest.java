@@ -26,6 +26,9 @@ public class RestauranteRepositoryIntegratedTest {
     @Autowired
     private RestauranteRepository restauranteRepository;
 
+    @Autowired
+    private RestauranteEntityConverter restauranteEntityConverter;
+
     @Test
     void devePermitirCriarTabela() {
         var count = restauranteRepository.count();
@@ -91,10 +94,10 @@ public class RestauranteRepositoryIntegratedTest {
     }
 
     private RestauranteJPAEntity toJpa(Restaurante restaurante) {
-        return RestauranteEntityConverter.toEntity(restaurante);
+        return restauranteEntityConverter.toEntity(restaurante);
     }
 
     private Restaurante fromJpa(RestauranteJPAEntity restauranteJpa) {
-        return RestauranteEntityConverter.toDomainObj(restauranteJpa);
+        return restauranteEntityConverter.toDomainObj(restauranteJpa);
     }
 }
