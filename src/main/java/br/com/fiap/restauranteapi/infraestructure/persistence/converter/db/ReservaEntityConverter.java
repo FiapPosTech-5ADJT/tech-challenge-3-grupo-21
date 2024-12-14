@@ -6,11 +6,11 @@ import br.com.fiap.restauranteapi.infraestructure.persistence.jpa.entity.Reserva
 
 
 public class ReservaEntityConverter implements EntityConverter<Reserva, ReservaJPAEntity> {
-    private final UsuarioEntityConverter usuarioEntityConverter;
+    /*private final UsuarioEntityConverter usuarioEntityConverter;
 
     public ReservaEntityConverter(UsuarioEntityConverter usuarioEntityConverter) {
         this.usuarioEntityConverter = usuarioEntityConverter;
-    }
+    }*/
 
     @Override
     public ReservaJPAEntity toEntity(Reserva domainObj) {
@@ -28,7 +28,7 @@ public class ReservaEntityConverter implements EntityConverter<Reserva, ReservaJ
     public Reserva toDomainObj(ReservaJPAEntity reservaEntity) {
         return new Reserva(
                 reservaEntity.getId(),
-                reservaEntity.getUsuarioEntity().getId(),
+                //reservaEntity.getUsuarioEntity().getId(),
                 reservaEntity.getRestauranteEntity().getId(),
                 reservaEntity.getQuantidadePessoas(),
                 reservaEntity.getDataHoraInicio(),
@@ -40,7 +40,7 @@ public class ReservaEntityConverter implements EntityConverter<Reserva, ReservaJ
     public ReservaDetalhada toDetailedDomainObj(ReservaJPAEntity reservaEntity) {
         return new ReservaDetalhada(
                 reservaEntity.getId(),
-                usuarioEntityConverter.toDomainObj(reservaEntity.getUsuarioEntity()),
+                //usuarioEntityConverter.toDomainObj(reservaEntity.getUsuarioEntity()),
                 reservaEntity.getQuantidadePessoas(),
                 reservaEntity.getDataHoraInicio(),
                 reservaEntity.getDataHoraFim(),

@@ -14,8 +14,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RestauranteConfig {
     @Bean
-    public CadastroRestauranteUseCase cadastroRestauranteUseCase(RestauranteGateway restauranteGateway) {
-        return new CadastroRestauranteUseCase(restauranteGateway);
+    public CadastroRestauranteUseCase cadastroRestauranteUseCase(RestauranteService restauranteService) {
+        return new CadastroRestauranteUseCase(restauranteService);
     }
 
     @Bean

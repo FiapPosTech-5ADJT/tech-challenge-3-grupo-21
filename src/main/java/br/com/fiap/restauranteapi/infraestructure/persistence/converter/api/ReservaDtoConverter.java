@@ -18,12 +18,12 @@ public class ReservaDtoConverter implements DtoConverter<ReservaRequestDto, Rese
     public ReservaDetalhadaResponseDto toDetailedResponse(ReservaDetalhada domainObj) {
         return new ReservaDetalhadaResponseDto(
                 domainObj.getId(),
-                new UsuarioReservaDetalhadaDto(
+                /*new UsuarioReservaDetalhadaDto(
                         domainObj.getUsuario().getId(),
                         domainObj.getUsuario().getNome(),
                         domainObj.getUsuario().getTelefone(),
                         domainObj.getUsuario().getEmail()
-                ),
+                ),*/
                 domainObj.getQuantidadePessoas(),
                 domainObj.getDataHoraInicio(),
                 domainObj.getDataHoraFim(),

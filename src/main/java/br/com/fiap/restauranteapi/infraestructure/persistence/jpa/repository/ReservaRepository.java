@@ -26,7 +26,7 @@ public interface ReservaRepository extends JpaRepository<ReservaJPAEntity, Long>
   );
 
   @Query("SELECT r FROM ReservaJPAEntity r WHERE " +
-    "r.usuarioEntity.id = :idUsuario AND " + // Somente reservas do usuário em específico
+    /*"r.usuarioEntity.id = :idUsuario AND " + */// Somente reservas do usuário em específico
     "(r.dataHoraInicio >= :inicio AND r.dataHoraFim <= :fim) AND " + // Intervalo desejado
     "(r.status = 'ANDAMENTO' OR r.status = 'AGENDADO')" // Apenas status que impossibilitariam novas reservas
   )

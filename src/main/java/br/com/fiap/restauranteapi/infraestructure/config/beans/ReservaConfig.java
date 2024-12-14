@@ -16,11 +16,11 @@ import org.springframework.context.annotation.Configuration;
 public class ReservaConfig {
   @Bean
   CadastroReservaUseCase reservaUseCase(
-    UsuarioGateway usuarioGateway,
+    //UsuarioGateway usuarioGateway,
     RestauranteGateway restauranteGateway,
     ReservaGateway reservaGateway
   ) {
-    return new CadastroReservaUseCase(usuarioGateway, restauranteGateway, reservaGateway);
+    return new CadastroReservaUseCase(/*usuarioGateway,*/ restauranteGateway, reservaGateway);
   }
 
   @Bean
@@ -32,20 +32,20 @@ public class ReservaConfig {
   ReservaGateway reservaGateway(
     ReservaRepository reservaRepository,
     ReservaEntityConverter reservaEntityConverter,
-    UsuarioRepository usuarioRepository,
+    //UsuarioRepository usuarioRepository,
     RestauranteRepository restauranteRepository
   ) {
     return new ReservaGatewayImpl(
       reservaRepository,
       reservaEntityConverter,
-      usuarioRepository,
+      //usuarioRepository,
       restauranteRepository
     );
   }
 
   @Bean
-  ReservaEntityConverter reservaEntityConverter(UsuarioEntityConverter usuarioEntityConverter) {
-    return new ReservaEntityConverter(usuarioEntityConverter);
+  ReservaEntityConverter reservaEntityConverter(/*UsuarioEntityConverter usuarioEntityConverter*/) {
+    return new ReservaEntityConverter(/*usuarioEntityConverter*/);
   }
 
   @Bean

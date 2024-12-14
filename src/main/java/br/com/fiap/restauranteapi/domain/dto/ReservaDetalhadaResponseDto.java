@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public record ReservaDetalhadaResponseDto(
         Long id,
 
-        UsuarioReservaDetalhadaDto cliente,
+        //UsuarioReservaDetalhadaDto cliente,
 
         int quantidadePessoas,
 

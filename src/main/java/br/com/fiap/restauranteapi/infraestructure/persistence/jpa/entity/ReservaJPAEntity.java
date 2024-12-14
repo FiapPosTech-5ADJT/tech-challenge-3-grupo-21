@@ -19,10 +19,10 @@ import java.time.LocalDateTime;
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @NotNull
+  /*@NotNull
   @ManyToOne
   @JoinColumn(name = "usuario_id")
-  private UsuarioEntity usuarioEntity;
+  private UsuarioEntity usuarioEntity;*/
 
   @NotNull
   @ManyToOne

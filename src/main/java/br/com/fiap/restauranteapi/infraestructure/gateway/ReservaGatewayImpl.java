@@ -21,18 +21,18 @@ public class ReservaGatewayImpl implements ReservaGateway {
   private final ReservaRepository reservaRepository;
   private final ReservaEntityConverter reservaEntityConverter;
 
-  private final UsuarioRepository usuarioRepository;
+  //private final UsuarioRepository usuarioRepository;
   private final RestauranteRepository restauranteRepository;
 
   public ReservaGatewayImpl(
     ReservaRepository reservaRepository,
     ReservaEntityConverter reservaEntityConverter,
-    UsuarioRepository usuarioRepository,
+    //UsuarioRepository usuarioRepository,
     RestauranteRepository restauranteRepository
   ) {
     this.reservaRepository = reservaRepository;
     this.reservaEntityConverter = reservaEntityConverter;
-    this.usuarioRepository = usuarioRepository;
+    //this.usuarioRepository = usuarioRepository;
     this.restauranteRepository = restauranteRepository;
   }
 
@@ -54,7 +54,7 @@ public class ReservaGatewayImpl implements ReservaGateway {
   @Override
   public Reserva cadastrar(Reserva reserva) {
     ReservaJPAEntity reservaEntity = this.reservaEntityConverter.toEntity(reserva);
-    reservaEntity.setUsuarioEntity(usuarioRepository.getReferenceById(reserva.getIdUsuario()));
+    //reservaEntity.setUsuarioEntity(usuarioRepository.getReferenceById(reserva.getIdUsuario()));
     reservaEntity.setRestauranteEntity(restauranteRepository.getReferenceById(reserva.getIdRestaurante()));
 
     ReservaJPAEntity reservaEntityCadastrado = this.reservaRepository.save(reservaEntity);

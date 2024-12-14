@@ -24,8 +24,6 @@ public class RestauranteEntityConverter implements EntityConverter<Restaurante, 
                 .horarioFechamento(restaurante.getHorarioFuncionamento().getHorarioFechamento())
                 .tipoRestaurante(restaurante.getTipoRestaurante())
                 .capacidade(restaurante.getCapacidade())
-                .createdAt(restaurante.getCreatedAt())
-                .updatedAt(restaurante.getUpdatedAt())
                 .build();
     }
 

@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 public class ReservaDetalhada {
     private Long id;
-    private Usuario usuario;
+    //private Usuario usuario;
     private int quantidadePessoas;
     private LocalDateTime dataHoraInicio;
     private LocalDateTime dataHoraFim;
@@ -15,14 +15,14 @@ public class ReservaDetalhada {
 
     public ReservaDetalhada(
             Long id,
-            Usuario usuario,
+            //Usuario usuario,
             int quantidadePessoas,
             LocalDateTime dataHoraInicio,
             LocalDateTime dataHoraFim,
             StatusReserva status
     ) {
         this.id = id;
-        this.usuario = usuario;
+        //this.usuario = usuario;
         this.quantidadePessoas = quantidadePessoas;
         this.dataHoraInicio = dataHoraInicio;
         this.dataHoraFim = dataHoraFim;
@@ -37,13 +37,13 @@ public class ReservaDetalhada {
         this.id = id;
     }
 
-    public Usuario getUsuario() {
+    /*public Usuario getUsuario() {
         return usuario;
     }
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
-    }
+    }*/
 
     public int getQuantidadePessoas() {
         return quantidadePessoas;

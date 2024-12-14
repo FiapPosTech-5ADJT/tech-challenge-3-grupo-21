@@ -14,16 +14,16 @@ public class CadastroReservaUseCase {
     public static final int PERMANCENCIA_MINIMA = 1;
     public static final int PERMANCENCIA_MAXIMA = 5;
 
-    private final UsuarioGateway usuarioGateway;
+    //private final UsuarioGateway usuarioGateway;
     private final RestauranteGateway restauranteGateway;
     private final ReservaGateway reservaGateway;
 
     public CadastroReservaUseCase(
-            UsuarioGateway usuarioGateway,
+            //UsuarioGateway usuarioGateway,
             RestauranteGateway restauranteGateway,
             ReservaGateway reservaGateway
     ) {
-        this.usuarioGateway = usuarioGateway;
+        //this.usuarioGateway = usuarioGateway;
         this.restauranteGateway = restauranteGateway;
         this.reservaGateway = reservaGateway;
     }
@@ -114,13 +114,13 @@ public class CadastroReservaUseCase {
     }
 
     private void validarIntegridadeDosDadosNaBaseDeDados(Long idUsuario, Long idRestaurante) {
-        if (!usuarioGateway.verificarSeExistePeloId(idUsuario)) {
+        /*if (!usuarioGateway.verificarSeExistePeloId(idUsuario)) {
             throw new IllegalArgumentException("Usuário não encontrado.");
         }
 
         if (!restauranteGateway.verificarSeExiste(idRestaurante)) {
             throw new IllegalArgumentException("Restaurante não encontrado.");
-        }
+        }*/
     }
 
     /**
@@ -179,7 +179,7 @@ public class CadastroReservaUseCase {
                 .mapToInt(Reserva::getQuantidadePessoas)
                 .sum();
 
-        Restaurante restaurante = restauranteGateway.buscarPeloId(idRestaurante);
+        Restaurante restaurante = restauranteGateway.findById(idRestaurante).orElseThrow(() -> new IllegalArgumentException("Restaurante não encontrado."));
         Integer capacidadeSuportadoNoRestaurante = restaurante.getCapacidade();
 
         return (capacidadeOcupada + quantidadePessoas) <= capacidadeSuportadoNoRestaurante;
