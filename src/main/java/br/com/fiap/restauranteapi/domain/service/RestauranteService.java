@@ -6,9 +6,7 @@ import br.com.fiap.restauranteapi.domain.entity.Localizacao;
 import br.com.fiap.restauranteapi.domain.entity.Restaurante;
 import br.com.fiap.restauranteapi.domain.gateway.RestauranteGateway;
 
-import java.time.Duration;
 import java.util.List;
-import java.util.Optional;
 
 public class RestauranteService {
 
