@@ -11,11 +11,11 @@ import java.util.List;
 public interface RestauranteRepository extends JpaRepository<RestauranteJPAEntity, Long> {
 
     @Query("SELECT r FROM RestauranteJPAEntity r WHERE " +
-            "(:nome IS NULL OR r.nome LIKE %:nome%) AND " +
-            "(:endereco IS NULL OR r.logradouro LIKE %:endereco% OR r.bairro LIKE %:endereco% OR r.cidade LIKE %:endereco% OR r.estado LIKE %:endereco% OR r.pais LIKE %:endereco%) AND " +
-            "(:tipoCozinha IS NULL OR r.tipoRestaurante LIKE %:tipoCozinha%) AND " +
-            "(:cidade IS NULL OR r.cidade LIKE %:cidade%) AND " +
-            "(:estado IS NULL OR r.estado LIKE %:estado%) AND " +
-            "(:cep IS NULL OR r.cep LIKE %:cep%)")
+            "(:nome IS NULL OR UPPER(r.nome) LIKE CONCAT('%', UPPER(:nome), '%')) AND " +
+            "(:endereco IS NULL OR (UPPER(r.logradouro) LIKE CONCAT('%', UPPER(:endereco), '%') OR UPPER(r.bairro) LIKE CONCAT('%', UPPER(:endereco), '%') OR UPPER(r.cidade) LIKE CONCAT('%', UPPER(:endereco), '%') OR UPPER(r.estado) LIKE CONCAT('%', UPPER(:endereco), '%') OR UPPER(r.pais) LIKE CONCAT('%', UPPER(:endereco), '%'))) AND " +
+            "(:tipoCozinha IS NULL OR UPPER(r.tipoRestaurante) LIKE CONCAT('%', UPPER(:tipoCozinha), '%')) AND " +
+            "(:cidade IS NULL OR UPPER(r.cidade) LIKE CONCAT('%', UPPER(:cidade), '%')) AND " +
+            "(:estado IS NULL OR UPPER(r.estado) LIKE CONCAT('%', UPPER(:estado), '%')) AND " +
+            "(:cep IS NULL OR UPPER(r.cep) LIKE CONCAT('%', UPPER(:cep), '%'))")
     public List<RestauranteJPAEntity> findByLocation(String nome, String tipoCozinha, String endereco, String cidade, String estado, String cep);
 }
