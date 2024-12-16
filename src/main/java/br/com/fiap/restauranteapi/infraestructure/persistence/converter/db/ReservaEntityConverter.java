@@ -28,7 +28,6 @@ public class ReservaEntityConverter implements EntityConverter<Reserva, ReservaJ
     public Reserva toDomainObj(ReservaJPAEntity reservaEntity) {
         return new Reserva(
                 reservaEntity.getId(),
-                //reservaEntity.getUsuarioEntity().getId(),
                 reservaEntity.getRestauranteEntity().getId(),
                 reservaEntity.getQuantidadePessoas(),
                 reservaEntity.getDataHoraInicio(),

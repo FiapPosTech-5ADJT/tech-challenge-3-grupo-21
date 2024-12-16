@@ -30,14 +30,14 @@ public class Reserva {
   }
 
   public Reserva(
-    Long idUsuario,
+    Long id,
     Long idRestaurante,
     Integer quantidadePessoas,
     LocalDateTime dataHoraInicio,
     LocalDateTime dataHoraFim,
     StatusReserva status
   ) {
-    this.setIdUsuario(idUsuario);
+    this.setId(id);
     this.setIdRestaurante(idRestaurante);
     this.setQuantidadePessoas(quantidadePessoas);
     this.dataHoraInicio = dataHoraInicio;

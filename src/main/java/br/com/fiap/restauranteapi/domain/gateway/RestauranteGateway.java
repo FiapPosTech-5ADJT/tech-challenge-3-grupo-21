@@ -15,4 +15,8 @@ public interface RestauranteGateway {
     List<Restaurante> findAll();
 
     List<Restaurante> findByLocation(LocalizacaoDto localizacaoDTO);
+
+  Boolean verificarSeExiste(Long id);
+
+  Restaurante buscarPeloId(Long id);
 }

@@ -9,7 +9,9 @@ import br.com.fiap.restauranteapi.domain.gateway.UsuarioGateway;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.EnumSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ReservaService {
   public static final int PERMANCENCIA_MINIMA = 1;
@@ -184,5 +186,29 @@ public class ReservaService {
     Integer capacidadeSuportadoNoRestaurante = restaurante.getCapacidade();
 
     return (capacidadeOcupada + quantidadePessoas) <= capacidadeSuportadoNoRestaurante;
+  }
+
+  public Reserva atualizarStatusReserva(Long idReserva, String novoStatus) {
+    validaSeNovoStatusExiste(novoStatus);
+    validaSeReservaExiste(idReserva);
+
+    return reservaGateway.alterarStatus(idReserva, Enum.valueOf(StatusReserva.class, novoStatus));
+  }
+
+  private void validaSeNovoStatusExiste(String novoStatus) {
+    List<String> statusReservaValidos = EnumSet.allOf(StatusReserva.class).stream()
+      .map(Enum::toString)
+      .collect(Collectors.toList());
+
+    if (!statusReservaValidos.contains(novoStatus)) {
+      throw new IllegalArgumentException("O status " + novoStatus + " não é válido." +
+        "Para alterar o status deve-se enviar um dos seguinte valores: " + statusReservaValidos + ".");
+    }
+  }
+
+  private void validaSeReservaExiste(Long idReserva) {
+    if (!reservaGateway.verificarSeExiste(idReserva)) {
+      throw new IllegalArgumentException("Reserva não encontrada.");
+    }
   }
 }

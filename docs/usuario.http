@@ -1,0 +1,35 @@
+### Create a new user
+POST http://localhost:8080/usuario
+Content-Type: application/json
+
+{
+  "cpf": "33014076090",
+  "nome": "João da Silva",
+  "ddd": "11",
+  "telefone": "986417485",
+  "email": "finder@restaurantfinder.com"
+}
+
+### Create another user
+POST http://localhost:8080/usuario
+Content-Type: application/json
+
+{
+  "cpf": "12345678901",
+  "nome": "Maria Oliveira",
+  "ddd": "21",
+  "telefone": "987654321",
+  "email": "maria.oliveira@example.com"
+}
+
+### Create a user with invalid data
+POST http://localhost:8080/usuario
+Content-Type: application/json
+
+{
+  "cpf": "",
+  "nome": "",
+  "ddd": "",
+  "telefone": "",
+  "email": "email_invalido"
+}

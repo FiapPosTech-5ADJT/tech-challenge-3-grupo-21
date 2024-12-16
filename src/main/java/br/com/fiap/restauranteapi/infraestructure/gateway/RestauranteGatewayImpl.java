@@ -51,4 +51,15 @@ public class RestauranteGatewayImpl implements RestauranteGateway {
                 .toList();
     }
 
+  @Override
+  public Boolean verificarSeExiste(Long id) {
+    return this.restauranteRepository.existsById(id);
+  }
+
+  @Override
+  public Restaurante buscarPeloId(Long id) {
+    RestauranteJPAEntity restauranteEncontrado = this.restauranteRepository.getReferenceById(id);
+    return this.restauranteEntityConverter.toDomainObj(restauranteEncontrado);
+  }
+
 }
