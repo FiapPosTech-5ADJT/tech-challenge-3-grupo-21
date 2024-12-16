@@ -4,6 +4,8 @@ import br.com.fiap.restauranteapi.application.usecases.AtualizaStatusReservaUseC
 import br.com.fiap.restauranteapi.application.usecases.CadastroReservaUseCase;
 import br.com.fiap.restauranteapi.domain.gateway.ReservaGateway;
 import br.com.fiap.restauranteapi.domain.gateway.RestauranteGateway;
+import br.com.fiap.restauranteapi.domain.gateway.UsuarioGateway;
+import br.com.fiap.restauranteapi.domain.service.ReservaService;
 import br.com.fiap.restauranteapi.infraestructure.gateway.ReservaGatewayImpl;
 import br.com.fiap.restauranteapi.infraestructure.persistence.converter.api.ReservaDtoConverter;
 import br.com.fiap.restauranteapi.infraestructure.persistence.converter.db.ReservaEntityConverter;
@@ -15,37 +17,36 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ReservaConfig {
   @Bean
-  CadastroReservaUseCase reservaUseCase(
-    //UsuarioGateway usuarioGateway,
-    RestauranteGateway restauranteGateway,
-    ReservaGateway reservaGateway
-  ) {
-    return new CadastroReservaUseCase(/*usuarioGateway,*/ restauranteGateway, reservaGateway);
+  CadastroReservaUseCase reservaUseCase(ReservaService reservaService) {
+    return new CadastroReservaUseCase(reservaService);
   }
 
   @Bean
-  AtualizaStatusReservaUseCase atualizaStatusReservaUseCase(ReservaGateway reservaGateway) {
-    return new AtualizaStatusReservaUseCase(reservaGateway);
+  AtualizaStatusReservaUseCase atualizaStatusReservaUseCase(ReservaService reservaService) {
+    return new AtualizaStatusReservaUseCase(reservaService);
+  }
+
+  @Bean
+  ReservaService reservaService(RestauranteGateway restauranteGateway, ReservaGateway reservaGateway, UsuarioGateway usuarioGateway) {
+    return new ReservaService(usuarioGateway, restauranteGateway, reservaGateway);
   }
 
   @Bean
   ReservaGateway reservaGateway(
     ReservaRepository reservaRepository,
     ReservaEntityConverter reservaEntityConverter,
-    //UsuarioRepository usuarioRepository,
     RestauranteRepository restauranteRepository
   ) {
     return new ReservaGatewayImpl(
       reservaRepository,
       reservaEntityConverter,
-      //usuarioRepository,
       restauranteRepository
     );
   }
 
   @Bean
-  ReservaEntityConverter reservaEntityConverter(/*UsuarioEntityConverter usuarioEntityConverter*/) {
-    return new ReservaEntityConverter(/*usuarioEntityConverter*/);
+  ReservaEntityConverter reservaEntityConverter() {
+    return new ReservaEntityConverter();
   }
 
   @Bean
