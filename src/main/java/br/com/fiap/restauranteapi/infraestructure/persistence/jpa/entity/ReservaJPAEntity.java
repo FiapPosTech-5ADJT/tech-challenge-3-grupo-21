@@ -18,13 +18,7 @@ import java.time.LocalDateTime;
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-
-  /*@NotNull
-  @ManyToOne
-  @JoinColumn(name = "usuario_id")
-  private UsuarioEntity usuarioEntity;*/
-
-  @NotNull
+  
   @ManyToOne
   @JoinColumn(name = "restaurante_id")
   private RestauranteJPAEntity restauranteEntity;
