@@ -1,5 +1,5 @@
 ### Create a new restaurant
-POST http://localhost:8080/restaurante
+POST https://fase3fiaptechchallenge-c7e9gph9hnfsg0dq.brazilsouth-01.azurewebsites.net/restaurante
 Content-Type: application/json
 
 {
@@ -24,7 +24,7 @@ Content-Type: application/json
 }
 
 ### Create another restaurant
-POST http://localhost:8080/restaurante
+POST https://fase3fiaptechchallenge-c7e9gph9hnfsg0dq.brazilsouth-01.azurewebsites.net/restaurante
 Content-Type: application/json
 
 {
@@ -49,7 +49,7 @@ Content-Type: application/json
 }
 
 ### Create a restaurant with invalid data
-POST http://localhost:8080/restaurante
+POST https://fase3fiaptechchallenge-c7e9gph9hnfsg0dq.brazilsouth-01.azurewebsites.net/restaurante
 Content-Type: application/json
 
 {
@@ -57,7 +57,7 @@ Content-Type: application/json
 }
 
 ### Search for restaurants by location
-POST http://localhost:8080/restaurante/buscar
+POST https://fase3fiaptechchallenge-c7e9gph9hnfsg0dq.brazilsouth-01.azurewebsites.net/restaurante/buscar
 Content-Type: application/json
 
 {
