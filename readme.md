@@ -60,7 +60,14 @@ docker-compose up --build -d
 A aplicação está implantada no Azure. Você pode acessá-la usando a seguinte URL:
 
 [Restaurant Reservation System on Azure](https://fase3fiaptechchallenge-c7e9gph9hnfsg0dq.brazilsouth-01.azurewebsites.net)
+
 Obs: A aplicação pode estar fora do ar, pois a conta gratuita do Azure tem limitações de uso.
+
+## Documentação da API
+
+Foi utilizado o Swagger para documentar a API. Você pode acessar a documentação da API usando a seguinte URL:
+
+[Swagger Restaurant Reservation System on Azure](https://fase3fiaptechchallenge-c7e9gph9hnfsg0dq.brazilsouth-01.azurewebsites.net/swagger-ui.html)
 
 ## Cobertura de Código
 
