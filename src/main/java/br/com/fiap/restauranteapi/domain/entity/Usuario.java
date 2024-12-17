@@ -61,7 +61,7 @@ public class Usuario {
       throw new IllegalArgumentException("O campo 'nome' não pode estar nulo/vazio.");
     }
 
-    if (nome.length() == TAMANHO_MAXIMO_NOME) {
+    if (nome.length() >TAMANHO_MAXIMO_NOME) {
       throw new IllegalArgumentException("O campo 'nome' deve ter no máximo " +
         TAMANHO_MAXIMO_NOME + " caracteres.");
     }
